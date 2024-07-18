@@ -46,7 +46,7 @@ describe('Automation Of Wishlist And Cart',()=>{
 
 
          })
-    it.only('Go to the wishlist ',()=>{
+    it('Go to the wishlist ',()=>{
              View()
             Sitevisit()
     
@@ -67,7 +67,54 @@ describe('Automation Of Wishlist And Cart',()=>{
         cy.get('.swal2-cancel').should('be.visible')
         cy.get('.swal2-cancel').click()
 
+        
+
     })
+    it('Go to the cart ',()=>{
+        View()
+        Sitevisit()
+        cy.get('.header-cart-icon > picture > img').should('be.visible')
+        .click()
+        cy.wait(5000)
+        cy.get('.cart-sidebar-detail').should('be.visible')
+        cy.get('.quantity').should('be.visible')
+        
+        cy.get('.increment > span').click()
+        cy.get('.close-btn').click()
+       
+
+        cy.get('.swal2-popup').should('be.visible')
+        cy.get('#swal2-title').should('have.text','Are you sure?')
+        cy.get('.swal2-cancel').should('be.visible')
+        cy.get('.swal2-cancel').click()
+
+        cy.get('.view-cart-btn').should('be.visible')
+        cy.get('.view-cart-btn').click()
+        cy.url().should('eq', 'https://ehackathon.online/antarang/view-cart');
+        cy.get('tr > :nth-child(2) > .black-text').should('have.text','₹ 199.00')
+
+        cy.get('.checkout-button').should('be.visible')
+ })
+ it.only('verify it have delete button ',()=>{
+            View()
+            cy.visit('https://ehackathon.online/antarang/view-cart')
+            cy.get('.close-btn').click()
+            
+
+            cy.get('.swal2-popup').should('be.visible')
+            cy.get('#swal2-title').should('have.text','Are you sure?')
+            cy.get('.swal2-cancel').should('be.visible')
+            cy.get('.swal2-cancel').click({ multiple: true })
+            // cy.get('.swal2-confirm').click()
+
+            // cy.get('.swal2-popup').should('be.visible')
+            // cy.get('.swal2-confirm').should('be.visible')
+            // cy.get('.swal2-confirm').click()
+
+            cy.get('.checkout-button').should('be.visible')
+
+
+ })
 
  
 })
